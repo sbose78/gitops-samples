@@ -4,6 +4,12 @@ metadata:
   name: hello 
   namespace: serverless-apps
 spec:
+  traffic:
+    - latestRevision: true
+      percent: 80
+    - latestRevision: false
+      percent: 20
+      revisionName: hello-00002
   template:
     spec:
       containers:
@@ -11,3 +17,4 @@ spec:
           env:
             - name: RESPONSE 
               value: "Hello Serverless!"
+  
