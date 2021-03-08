@@ -1,0 +1,63 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: nodejs-ex
+  namespace: sbose
+  labels:
+    app: nodejs-ex
+    app.kubernetes.io/component: nodejs-ex
+    app.kubernetes.io/instance: nodejs-ex
+    app.kubernetes.io/name: nodejs
+    app.kubernetes.io/part-of: nodejs-ex-app
+    app.openshift.io/runtime: nodejs
+    app.openshift.io/runtime-version: 14-ubi7
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - nodejs-ex
+        from:
+          kind: ImageStreamTag
+          namespace: sbose
+          name: 'nodejs-ex:latest'
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: nodejs-ex
+    deploymentconfig: nodejs-ex
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodejs-ex
+        deploymentconfig: nodejs-ex
+    spec:
+      containers:
+        - name: nodejs-ex
+          image: ""
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

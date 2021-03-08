@@ -1,0 +1,36 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: nodejs-ex
+  namespace: new-app-apps
+  labels:
+    app: nodejs-ex
+    app.kubernetes.io/component: nodejs-ex
+    app.kubernetes.io/instance: nodejs-ex
+    app.kubernetes.io/name: nodejs
+    app.kubernetes.io/part-of: nodejs-ex-app
+    app.openshift.io/runtime: nodejs
+    app.openshift.io/runtime-version: 14-ubi7
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'nodejs-ex:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'nodejs:14-ubi7'
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/sclorg/nodejs-ex'
+    contextDir:   
+  runPolicy: Serial
