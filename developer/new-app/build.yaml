@@ -28,3 +28,5 @@ spec:
       uri: 'https://github.com/sclorg/nodejs-ex'
     contextDir:   
   runPolicy: Serial
+  triggers:
+   - type: ImageChange
