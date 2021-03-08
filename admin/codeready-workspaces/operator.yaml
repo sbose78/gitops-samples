@@ -33,6 +33,7 @@ metadata:
   namespace: openshift-workspaces
 spec:
   channel: latest
-  name: crwoperator.v2.6.0
+  name: codeready-workspaces
   source: redhat-operators
   sourceNamespace: openshift-marketplace
+  startingCSV: crwoperator.v2.6.0
