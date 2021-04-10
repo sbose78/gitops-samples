@@ -24,7 +24,7 @@ spec:
           - nodejs-ex
         from:
           kind: ImageStreamTag
-          namespace: sbose
+          namespace: new-app-apps
           name: 'nodejs-ex:latest'
     - type: ConfigChange
   replicas: 1
