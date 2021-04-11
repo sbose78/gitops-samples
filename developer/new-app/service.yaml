@@ -2,7 +2,6 @@ kind: Service
 apiVersion: v1
 metadata:
   name: nodejs-ex
-  namespace: new-app-apps
 spec:
   ports:
     - name: 8080-tcp

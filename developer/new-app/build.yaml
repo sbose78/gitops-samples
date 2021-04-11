@@ -2,7 +2,6 @@ kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
   name: nodejs-ex
-  namespace: new-app-apps
   labels:
     app: nodejs-ex
 spec:
